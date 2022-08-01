@@ -1,11 +1,11 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/wally-registry-tutorial/wally-backend:$COMMIT_SHA', '-f', 'wally-registry-backend/Dockerfile', '.']
+    args: ['build', '-t', 'gcr.io/wally-registry-tutorial/tutorial-wally-registry-backend:$COMMIT_SHA', '-f', 'wally-registry-backend/Dockerfile', '.']
 
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/wally-registry-tutorial/wally-backend']
+    args: ['push', 'gcr.io/wally-registry-tutorial/tutorial-wally-registry-backend']
 
   # Deploy container image to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
@@ -13,9 +13,9 @@ steps:
       [
         "run",
         "deploy",
-        "wally-backend",
+        "tutorial-wally-registry-backend",
         "--image",
-        "gcr.io/wally-registry-tutorial/wally-backend:$COMMIT_SHA",
+        "gcr.io/wally-registry-tutorial/tutorial-wally-registry-backend:$COMMIT_SHA",
         "--region",
         "us-central1",
         "--platform",
